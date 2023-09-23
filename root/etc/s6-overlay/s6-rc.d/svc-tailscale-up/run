@@ -33,6 +33,18 @@ if [ -v TAILSCALE_SERVE_PORT ] && [ -v TAILSCALE_SERVE_MODE ]; then
     fi
 fi
 
+# configure exit node
+if [ -v TAILSCALE_USE_EXIT_NODE ]; then
+    echo "[!] using ${TAILSCALE_USE_EXIT_NODE} as an exit node."
+    FLAGS="${FLAGS} --exit-node=${TAILSCALE_USE_EXIT_NODE}"
+
+    if [ -v TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS ]; then
+        echo '[!] allowing exit node LAN access.'
+        FLAGS="${FLAGS} --exit-node-allow-lan-access=${TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS}"
+    fi
+fi
+
+
 # configure funnel
 if [ -v TAILSCALE_FUNNEL ]; then
     tailscale funnel 443 on
