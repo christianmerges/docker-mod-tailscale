@@ -3,6 +3,8 @@
 ## Ubuntu
 if [ -f /usr/bin/apt ]; then
     echo "\
+        iproute2 \
+        net-tools \
         jq \
         iptables" >> /mod-repo-packages-to-install.list
 
