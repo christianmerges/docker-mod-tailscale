@@ -22,6 +22,7 @@ use to configure it.
 | `TAILSCALE_BE_EXIT_NODE` | **/!\ notwork** Set this to `true` to enable [exit nodes](https://tailscale.com/kb/1103/exit-nodes/).| `true`                                     |
 | `TAILSCALE_USE_EXIT_NODE` | **/!\ notwork** Set the exit node you'd like to use for the container. | `my-exit-node` or `100.101.165.3` |
 | `TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS` | **/!\ notwork** Optionally, set this to true to allow direct access to your local network when traffic is routed via an exit node. | `true` |
+| `WG_CONTAINER_NAME` | The name of the container that you want to use for WireGuard. Temporary fix as exit nodes are not working. | `wireguard` |
 
 
 Something important to keep in mind is that you really should set up a

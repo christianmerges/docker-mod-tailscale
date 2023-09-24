@@ -48,6 +48,14 @@ if [ -v TAILSCALE_FUNNEL ]; then
     tailscale funnel 443 on
 fi
 
+# route all traffic through wireguard container (tailscale exit node replacement)
+if [ -v WG_CONTAINER_NAME ]; then
+    WIREGUARD_CONTAINER_IP=$(nslookup "${WG_CONTAINER_NAME}" | grep -oE 'Address: [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk '{print $2}')
+    echo "[!] routing all traffic through ${WIREGUARD_CONTAINER_IP}"
+    ip route del default
+    ip route add default via "${WIREGUARD_CONTAINER_IP}"
+fi
+
 
 
 
