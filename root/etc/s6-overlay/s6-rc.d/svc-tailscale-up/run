@@ -21,6 +21,16 @@ if [ -v TAILSCALE_BE_EXIT_NODE ]; then
     echo '[!] acting as an exit node, you may need to approve this in the admin console'
     FLAGS="${FLAGS} --advertise-exit-node=${TS_BE_EXIT_NODE}"
 fi
+# configure exit node to fix
+if [ -v TAILSCALE_USE_EXIT_NODE ]; then
+    echo "[!] using ${TAILSCALE_USE_EXIT_NODE} as an exit node."
+    FLAGS="${FLAGS} --exit-node=${TAILSCALE_USE_EXIT_NODE}"
+
+    if [ -v TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS ]; then
+        echo '[!] allowing exit node LAN access.'
+        FLAGS="${FLAGS} --exit-node-allow-lan-access=${TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS}"
+    fi
+fi
 
 tailscale up $FLAGS
 
@@ -32,18 +42,6 @@ if [ -v TAILSCALE_SERVE_PORT ] && [ -v TAILSCALE_SERVE_MODE ]; then
         tailscale serve "${TAILSCALE_SERVE_MODE}":443 http://localhost:"${TAILSCALE_SERVE_PORT}"
     fi
 fi
-
-# configure exit node
-if [ -v TAILSCALE_USE_EXIT_NODE ]; then
-    echo "[!] using ${TAILSCALE_USE_EXIT_NODE} as an exit node."
-    FLAGS="${FLAGS} --exit-node=${TAILSCALE_USE_EXIT_NODE}"
-
-    if [ -v TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS ]; then
-        echo '[!] allowing exit node LAN access.'
-        FLAGS="${FLAGS} --exit-node-allow-lan-access=${TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS}"
-    fi
-fi
-
 
 # configure funnel
 if [ -v TAILSCALE_FUNNEL ]; then
