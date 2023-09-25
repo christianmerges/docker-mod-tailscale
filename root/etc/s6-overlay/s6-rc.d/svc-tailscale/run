@@ -3,7 +3,7 @@
 FLAGS=""
 
 if ! [ -e /dev/net/tun ]; then
-    FLAGS="$flags --tun=userspace-networking"
+    FLAGS="$flags --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055"
 fi
 
 if [ -v TAILSCALE_STATE_DIR ]; then

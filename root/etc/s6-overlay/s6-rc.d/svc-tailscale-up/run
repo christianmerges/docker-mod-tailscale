@@ -56,6 +56,11 @@ if [ -v WG_CONTAINER_NAME ]; then
     ip route add default via "${WIREGUARD_CONTAINER_IP}"
 fi
 
+# configure proxy
+sleep 3 # give tailscale a chance to start up
+if [ -v TAILSCALE_USE_EXIT_NODE ]; then
+    ALL_PROXY=socks5://localhost:1055/ HTTP_PROXY=http://localhost:1055/ http_proxy=http://localhost:1055/
+fi
 
 
 
