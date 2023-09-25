@@ -62,7 +62,7 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
     export ALL_PROXY=socks5://localhost:1055/
     export HTTP_PROXY=http://localhost:1055/
     export http_proxy=http://localhost:1055/
-    TEST_IP=&(curl -s https://api.ipify.org)
+    TEST_IP=$(curl -s https://api.ipify.org)
     echo "[!] testing proxy, your IP should be ${TEST_IP}"
 fi
 
