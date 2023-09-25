@@ -59,9 +59,11 @@ fi
 # configure proxy
 sleep 3 # give tailscale a chance to start up
 if [ -v TAILSCALE_USE_EXIT_NODE ]; then
-    echo "export ALL_PROXY=socks5://localhost:1055/" >> /etc/environment
-    echo "export HTTP_PROXY=http://localhost:1055/" >> /etc/environment
-    echo "export http_proxy=http://localhost:1055/" >> /etc/environment
+    export ALL_PROXY=socks5://localhost:1055/
+    export HTTP_PROXY=http://localhost:1055/
+    export http_proxy=http://localhost:1055/
+    TEST_IP=&(curl -s https://api.ipify.org)
+    echo "[!] testing proxy, your IP should be ${TEST_IP}"
 fi
 
 
