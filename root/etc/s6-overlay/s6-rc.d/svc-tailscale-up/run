@@ -82,6 +82,13 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
         echo export HTTP_PROXY=http://localhost:1055/ >> /etc/profile
         echo export http_proxy=http://localhost:1055/ >> /etc/profile
     fi
+    # add in /var/run/s6/container_environment folder if it exists
+    if [ -d /var/run/s6/container_environment ]; then
+        printf "socks5://localhost:1055/" > /var/run/s6/container_environment/ALL_PROXY
+        printf "http://localhost:1055/" > /var/run/s6/container_environment/HTTP_PROXY
+        printf "http://localhost:1055/" > /var/run/s6/container_environment/http_proxy
+    fi
+
 
 fi
 
