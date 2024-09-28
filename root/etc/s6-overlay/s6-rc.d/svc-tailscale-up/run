@@ -69,32 +69,32 @@ sleep 3 # give tailscale a chance to start up
 if [ -v TAILSCALE_USE_EXIT_NODE ]; then
     # test proxy
     export ALL_PROXY=socks5://localhost:1055/
-    #export HTTP_PROXY=http://localhost:1055/
-    #export http_proxy=http://localhost:1055/
+    export HTTP_PROXY=http://localhost:1055/
+    export http_proxy=http://localhost:1055/
     TEST_IP=$(curl -s https://api.ipify.org)
     # add proxy to environment if /etc/environment exixts
     if [ -f /etc/environment ]; then
         echo ALL_PROXY=socks5://localhost:1055/ >> /etc/environment
-        #echo HTTP_PROXY=http://localhost:1055/ >> /etc/environment
-        #echo http_proxy=http://localhost:1055/ >> /etc/environment
+        echo HTTP_PROXY=http://localhost:1055/ >> /etc/environment
+        echo http_proxy=http://localhost:1055/ >> /etc/environment
     fi
     # add proxy to bash.bashrc if it exists
     if [ -f /etc/bash.bashrc ]; then
         echo export ALL_PROXY=socks5://localhost:1055/ >> /etc/bash.bashrc
-        #echo export HTTP_PROXY=http://localhost:1055/ >> /etc/bash.bashrc
-        #echo export http_proxy=http://localhost:1055/ >> /etc/bash.bashrc
+        echo export HTTP_PROXY=http://localhost:1055/ >> /etc/bash.bashrc
+        echo export http_proxy=http://localhost:1055/ >> /etc/bash.bashrc
     fi
     # add proxy to profile if it exists
     if [ -f /etc/profile ]; then
         echo export ALL_PROXY=socks5://localhost:1055/ >> /etc/profile
-        #echo export HTTP_PROXY=http://localhost:1055/ >> /etc/profile
-        #echo export http_proxy=http://localhost:1055/ >> /etc/profile
+        echo export HTTP_PROXY=http://localhost:1055/ >> /etc/profile
+        echo export http_proxy=http://localhost:1055/ >> /etc/profile
     fi
     # add in /var/run/s6/container_environment folder if it exists
     if [ -d /var/run/s6/container_environment ]; then
         printf "socks5://localhost:1055/" > /var/run/s6/container_environment/ALL_PROXY
-        #printf "http://localhost:1055/" > /var/run/s6/container_environment/HTTP_PROXY
-        #printf "http://localhost:1055/" > /var/run/s6/container_environment/http_proxy
+        printf "http://localhost:1055/" > /var/run/s6/container_environment/HTTP_PROXY
+        printf "http://localhost:1055/" > /var/run/s6/container_environment/http_proxy
     fi
 
 
