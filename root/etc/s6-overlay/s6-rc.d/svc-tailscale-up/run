@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 FLAGS=""
+FLAGS2=""
 
 # configure `tailscale up`
 if ! [ -v TAILSCALE_AUTHKEY ]; then
@@ -24,7 +25,7 @@ fi
 # configure exit node to fix
 if [ -v TAILSCALE_USE_EXIT_NODE ]; then
     echo "[!] using ${TAILSCALE_USE_EXIT_NODE} as an exit node."
-    FLAGS="${FLAGS} --exit-node=${TAILSCALE_USE_EXIT_NODE}"
+    FLAGS2="${FLAGS2} --exit-node=${TAILSCALE_USE_EXIT_NODE}"
 
     if [ -v TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS ]; then
         echo '[!] allowing exit node LAN access.'
@@ -32,7 +33,8 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
     fi
 fi
 echo FLAGS: $FLAGS
-sudo tailscale up $FLAGS
+echo FLAGS2: $FLAGS2
+sudo tailscale up $FLAGS $FLAGS2
 
 # configure serve
 if [ -v TAILSCALE_SERVE_PORT ] && [ -v TAILSCALE_SERVE_MODE ]; then
@@ -58,6 +60,8 @@ if [ -v WG_CONTAINER_NAME ]; then
     ip route del default
     ip route add default via "${WIREGUARD_CONTAINER_IP}"
 fi
+'
+
 
 # configure proxy
 sleep 3 # give tailscale a chance to start up
@@ -94,6 +98,5 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
 
 
 fi
-'
 
 
