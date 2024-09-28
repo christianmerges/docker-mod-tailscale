@@ -31,7 +31,7 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
         FLAGS="${FLAGS} --exit-node-allow-lan-access=${TAILSCALE_EXIT_NODE_ALLOW_LAN_ACCESS}"
     fi
 fi
-
+echo FLAGS: $FLAGS
 tailscale up $FLAGS
 
 # configure serve
