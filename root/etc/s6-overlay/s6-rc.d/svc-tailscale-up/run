@@ -34,6 +34,7 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
 fi
 echo FLAGS: $FLAGS
 echo FLAGS2: $FLAGS2
+sudo tailscale up $FLAGS
 sudo tailscale up $FLAGS $FLAGS2
 
 # configure serve
