@@ -32,7 +32,7 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
     fi
 fi
 echo FLAGS: $FLAGS
-tailscale up $FLAGS
+sudo tailscale up $FLAGS
 
 # configure serve
 if [ -v TAILSCALE_SERVE_PORT ] && [ -v TAILSCALE_SERVE_MODE ]; then
@@ -55,7 +55,7 @@ if [ -v WG_CONTAINER_NAME ]; then
     ip route del default
     ip route add default via "${WIREGUARD_CONTAINER_IP}"
 fi
-
+: '
 # configure proxy
 sleep 3 # give tailscale a chance to start up
 if [ -v TAILSCALE_USE_EXIT_NODE ]; then
@@ -91,6 +91,6 @@ if [ -v TAILSCALE_USE_EXIT_NODE ]; then
 
 
 fi
-
+'
 
 
