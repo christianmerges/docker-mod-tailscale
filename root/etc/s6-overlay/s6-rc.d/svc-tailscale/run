@@ -17,7 +17,7 @@ else
 fi
 
 if ! [ -v TAILSCALE_TAILSCALED_LOG ]; then
-    tailscaled $FLAGS 2>&1 > /dev/null
+    sudo tailscaled $FLAGS 2>&1 > /dev/null
 else
-    tailscaled $FLAGS
+    sudo tailscaled $FLAGS
 fi
